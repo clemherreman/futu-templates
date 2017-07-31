@@ -1,0 +1,66 @@
+{extends file="admin-layout.tpl"}
+
+{block name="no-return-functions"}
+{$admin_current_location = 'customer'}
+{/block}
+
+{block name="page-title"}{intl l='Modules'}{/block}
+
+{block name="check-resource"}admin.customer{/block}
+{block name="check-access"}view{/block}
+
+{block name="main-content"}
+<div class="customer">
+    <div id="wrapper" class="container">
+
+        <ul class="breadcrumb">
+            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li><a href="{url path='/admin/modules'}">{intl l="Modules"}</a></li>
+            <li><a href="{url path='/admin/module/HomeSlider'}">{intl l="Configurer : HomeSlider - Home slider configurator"}</a></li>
+            <li><a href="#">{intl l="List"}</a></li>
+        </ul>
+
+        <div class="form-container">
+            <div class="row">
+                <div class="col-md-12 general-block-decorator">
+                    <div class="col-md-12">
+                        <a class="btn  btn-primary" href="{url path='/admin/module/HomeSlider/edition'}">{intl l="Add"}</a>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{intl l="Title"}</th>
+                                <th>{intl l="Image"}</th>
+                                <th>{intl l="Url"}</th>
+                                <th>{intl l="Order"}</th>
+                                <th>{intl l="Action"}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach from=$sliders item=slider}
+                            <tr>
+                                <td>{$slider.Id}</td>
+                                <td>{$slider.Title}</td>
+                                <td>
+                                    {if $slider.Image}
+                                    <img src="/media/upload/{$slider.Image}" height="64"/>
+                                    {/if}
+                                </td>
+                                <td>{$slider.Url}</td>
+                                <td>{$slider.Ordre}</td>
+                                <td>
+                                    <a class="btn btn-default" href="{url path='/admin/module/HomeSlider/edition'}?id={$slider.Id}">{intl l="Edit"}</a>
+                                    <a class="btn btn-default btn-danger" href="{url path='/admin/module/HomeSlider/remove'}?id={$slider.Id}" role="button">{intl l="Delete"}</a>
+                                </td>
+                            </tr>
+                            {/foreach}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

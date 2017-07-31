@@ -1,0 +1,74 @@
+{extends file="admin-layout.tpl"}
+
+{block name="no-return-functions"}
+{$admin_current_location = 'customer'}
+{/block}
+
+{block name="page-title"}{intl l='Modules'}{/block}
+
+{block name="check-resource"}admin.customer{/block}
+{block name="check-access"}view{/block}
+
+{block name="main-content"}
+<div class="customer">
+    <div id="wrapper" class="container">
+
+        <ul class="breadcrumb">
+            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li><a href="{url path='/admin/modules'}">{intl l="Modules"}</a></li>
+            <li><a href="{url path='/admin/module/HomeSlider'}">{intl l="Configurer : HomeSlider - Home slider configurator"}</a></li>
+            <li><a href="{url path='/admin/module/HomeSlider/index'}">{intl l="List"}</a></li>
+            {if $id }
+            <li><a href="#">{intl l="Edit"}</a></li>
+            {else}
+            <li><a href="#">{intl l="Add"}</a></li>
+            {/if}
+        </ul>
+
+        <div class="form-container">
+            <div class="row">
+                <div class="col-md-12 general-block-decorator">
+                    <div class="col-md-12">
+
+                        {form name="homeslider.form.configure"}
+
+                        <form action="{url path="/admin/module/HomeSlider/update"}" method="post" enctype="multipart/form-data">
+
+                        {form_hidden_fields form=$form}
+
+                        {if $form_error}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger">{$form_error_message}</div>
+                            </div>
+                        </div>
+                        {/if}
+
+                        {render_form_field form=$form field="title" value=$entity.Title}
+                        {render_form_field form=$form field="image"}
+
+                        {if $entity.Image}
+                        <img src="/media/upload/{$entity.Image}" height="128"/>
+                        {/if}
+
+                        {render_form_field form=$form field="url"   value=$entity.Url}
+                        {render_form_field form=$form field="ordre" value=$entity.Ordre}
+
+                        {if $id }
+                        <input type="hidden" value="{$entity.Id}" name="id" />
+                        <input type="submit" class="btn btn-default btn-primary" value="{intl l='Save'}" />
+                        {else}
+                        <input type="submit" class="btn btn-default btn-primary" value="{intl l='Add'}" />
+                        {/if}
+
+                        <a href="{url path="/admin/module/HomeSlider/index"}" class="btn btn-default">{intl l="Cancel"}</a>
+
+                        </form>
+                        {/form}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
